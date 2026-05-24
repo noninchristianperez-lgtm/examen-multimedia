@@ -1,0 +1,1604 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="generator" content="eXeLearning v4.0.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Manual de instalación – Opti OS 11</title>
+<link rel="icon" type="image/x-icon" href="libs/favicon.ico">
+<link rel="shortcut icon" href="/nueva web/assets/images/favicon.ico" type="image/x-icon">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ===== VARIABLES ===== */
+:root {
+  --bg:        #0b0f1a;
+  --surface:   #111827;
+  --surface2:  #1a2235;
+  --border:    #1e2d45;
+  --accent:    #00d9ff;
+  --accent2:   #7c3aed;
+  --warn:      #f59e0b;
+  --danger:    #ef4444;
+  --success:   #10b981;
+  --text:      #e2e8f0;
+  --muted:     #64748b;
+  --mono:      'Space Mono', monospace;
+  --sans:      'Sora', sans-serif;
+  --radius:    12px;
+  --sidebar-w: 300px;
+}
+
+/* ===== RESET & BASE ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.7;
+}
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ===== LAYOUT ===== */
+.shell {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ===== TOPBAR ===== */
+.topbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 60px;
+  background: rgba(11,15,26,.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  gap: 16px;
+  z-index: 200;
+}
+.topbar__logo {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--accent);
+  white-space: nowrap;
+}
+.topbar__title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  opacity: .85;
+}
+.topbar__badge {
+  margin-left: auto;
+  font-family: var(--mono);
+  font-size: 11px;
+  background: var(--accent2);
+  color: #fff;
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+.topbar__meta {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+  width: var(--sidebar-w);
+  flex-shrink: 0;
+  position: fixed;
+  top: 60px;
+  bottom: 0;
+  left: 0;
+  overflow-y: auto;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  padding: 24px 0 40px;
+  z-index: 100;
+}
+.sidebar::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-track { background: transparent; }
+.sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+.sidebar__head {
+  padding: 0 20px 20px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 12px;
+}
+.sidebar__head h2 {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+.sidebar__head p {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* Progress */
+.progress-wrap {
+  padding: 0 20px 16px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 8px;
+}
+.progress-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--muted);
+  font-family: var(--mono);
+  margin-bottom: 6px;
+}
+.progress-track {
+  height: 3px;
+  background: var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  border-radius: 4px;
+  transition: width .4s ease;
+}
+
+/* Nav links */
+.nav-link {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background .15s;
+  border-left: 3px solid transparent;
+}
+.nav-link:hover { background: var(--surface2); }
+.nav-link.active {
+  background: rgba(0,217,255,.07);
+  border-left-color: var(--accent);
+}
+.nav-link__num {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--accent);
+  background: rgba(0,217,255,.1);
+  border-radius: 4px;
+  padding: 1px 6px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.nav-link__text strong {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.3;
+}
+.nav-link__text span {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+/* ===== MAIN CONTENT ===== */
+.main {
+  margin-left: var(--sidebar-w);
+  margin-top: 60px;
+  padding: 48px 48px 80px;
+  max-width: 900px;
+  flex: 1;
+}
+
+/* ===== SECTION HEADER ===== */
+.section-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+}
+.section-header__num {
+  font-family: var(--mono);
+  font-size: 11px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: #000;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 6px;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+.section-header__title { flex: 1; }
+.section-header__eyebrow {
+  font-family: var(--mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+.section-header__title h2 {
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1.2;
+  color: #fff;
+}
+.section-header__title p {
+  font-size: 14px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+.section-tag {
+  font-size: 11px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  padding: 4px 12px;
+  border-radius: 20px;
+  color: var(--muted);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.section-tag strong { color: var(--text); }
+
+/* Section block spacing */
+.section-block {
+  margin-bottom: 80px;
+}
+
+/* ===== CARD ===== */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px 28px;
+  margin-bottom: 20px;
+}
+.card h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 14px;
+}
+.card p { color: var(--text); font-size: 14px; }
+
+.card.callout {
+  border-left: 3px solid var(--accent);
+  background: rgba(0,217,255,.04);
+}
+.card.warning {
+  border-left: 3px solid var(--warn);
+  background: rgba(245,158,11,.04);
+}
+.card.warning .eyebrow { color: var(--warn); }
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+/* ===== HERO CARD ===== */
+.hero-card {
+  background: linear-gradient(135deg, var(--surface), var(--surface2));
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px;
+  margin-bottom: 20px;
+}
+.hero-card h3 {
+  font-size: 22px;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+.hero-card p {
+  font-size: 14px;
+  color: var(--text);
+  margin-bottom: 24px;
+  max-width: 560px;
+}
+.meta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+}
+.meta-pill {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 14px;
+}
+.meta-pill span {
+  display: block;
+  font-size: 10px;
+  font-family: var(--mono);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--muted);
+  margin-bottom: 3px;
+}
+.meta-pill strong {
+  display: block;
+  font-size: 13px;
+  color: var(--text);
+  font-weight: 600;
+}
+
+/* ===== TABLES ===== */
+.table-wrap { overflow-x: auto; margin-top: 4px; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+thead { background: var(--bg); }
+th {
+  text-align: left;
+  padding: 10px 14px;
+  font-family: var(--mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  color: var(--accent);
+  border-bottom: 1px solid var(--border);
+}
+td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+}
+tbody tr:hover { background: rgba(255,255,255,.02); }
+
+/* ===== STEP LIST ===== */
+.step-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.step-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 14px;
+  color: var(--text);
+  padding: 10px 14px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+.step-num {
+  font-family: var(--mono);
+  font-size: 11px;
+  background: rgba(0,217,255,.12);
+  color: var(--accent);
+  padding: 1px 7px;
+  border-radius: 4px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* ===== BULLET LIST ===== */
+.bullet-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.bullet-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--text);
+  padding-left: 4px;
+}
+.bullet-list li::before {
+  content: '▸';
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+/* ===== INDEX LIST ===== */
+.index-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.index-list li {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 16px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: border-color .15s;
+}
+.index-list li:hover { border-color: var(--accent); }
+.index-list .idx-num {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--accent);
+  width: 28px;
+  flex-shrink: 0;
+}
+
+/* ===== ACCORDION ===== */
+.accordion-group { margin-bottom: 20px; }
+.accordion-group h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 12px;
+}
+.accordion {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin-bottom: 6px;
+  overflow: hidden;
+}
+.accordion summary {
+  padding: 13px 18px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+}
+.accordion summary::-webkit-details-marker { display: none; }
+.accordion summary::after {
+  content: '+';
+  font-family: var(--mono);
+  font-size: 16px;
+  color: var(--accent);
+}
+.accordion[open] summary::after { content: '−'; }
+.accordion__body {
+  padding: 4px 18px 16px;
+  font-size: 14px;
+  color: var(--text);
+  border-top: 1px solid var(--border);
+}
+
+/* ===== ★ INSTALLATION IMAGE SEQUENCE ===== */
+.install-sequence { margin-bottom: 20px; }
+.install-sequence h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 20px;
+}
+.install-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+.install-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: border-color .2s, transform .2s;
+  cursor: pointer;
+}
+.install-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-3px);
+}
+.install-card__head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+}
+.install-card__step {
+  font-family: var(--mono);
+  font-size: 11px;
+  background: var(--accent);
+  color: #000;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+.install-card__label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+}
+.install-card img {
+  width: 100%;
+  aspect-ratio: 16/10;
+  object-fit: cover;
+  display: block;
+  background: var(--bg);
+}
+.install-card figcaption {
+  padding: 10px 14px;
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* Lightbox */
+.lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.92);
+  z-index: 999;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.lightbox.open { display: flex; }
+.lightbox img {
+  max-width: 90vw;
+  max-height: 85vh;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+.lightbox__close {
+  position: absolute;
+  top: 20px; right: 24px;
+  font-family: var(--mono);
+  font-size: 20px;
+  color: var(--text);
+  cursor: pointer;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 4px 12px;
+  border-radius: 6px;
+}
+.lightbox__caption {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 20px;
+  font-size: 13px;
+  color: var(--text);
+  text-align: center;
+  max-width: 600px;
+}
+
+/* ===== PORTADA HERO ===== */
+.portada-hero {
+  background: linear-gradient(135deg, #0d1526 0%, #1a2235 50%, #0b1020 100%);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 40px;
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+}
+.portada-hero::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 240px; height: 240px;
+  background: radial-gradient(circle, rgba(0,217,255,.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+.portada-hero__eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+.portada-hero h2 {
+  font-size: 32px;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.15;
+  margin-bottom: 14px;
+}
+.portada-hero p {
+  font-size: 15px;
+  color: var(--text);
+  max-width: 540px;
+  margin-bottom: 28px;
+}
+.project-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.badge {
+  font-family: var(--mono);
+  font-size: 16px;
+  background: rgba(0,217,255,.1);
+  border: 1px solid rgba(0,217,255,.2);
+  color: var(--accent);
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+/* ===== EXELEARNING FOOTER ORIGINAL ===== */
+#siteFooter {
+  margin-left: var(--sidebar-w);
+  background: #1a2235;
+  border-top: 1px solid var(--border);
+  padding: 16px 48px;
+  font-size: 13px;
+}
+#siteFooterContent {
+  display: flex;
+  align-items: center;
+}
+#packageLicense p {
+  margin: 0;
+  color: var(--muted);
+}
+.license-label {
+  color: var(--muted);
+  font-weight: 600;
+}
+.license {
+  color: var(--accent);
+  text-decoration: none;
+}
+.license:hover { text-decoration: underline; }
+
+#made-with-eXe {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  z-index: 9999;
+  margin: 0;
+  padding: 0;
+}
+#made-with-eXe a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.25);
+  text-decoration: none;
+  overflow: hidden;
+  transition: box-shadow .2s;
+}
+#made-with-eXe a:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,.4);
+}
+#made-with-eXe a::before {
+  content: '';
+  display: block;
+  width: 28px;
+  height: 28px;
+  background: url('https://exelearning.net/favicon.ico') center/contain no-repeat;
+}
+#made-with-eXe span {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  #siteFooter, #made-with-eXe { margin-left: 0; padding: 12px 16px; }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  :root { --sidebar-w: 0px; }
+  .sidebar { display: none; }
+  .main { padding: 24px 16px 60px; }
+  #siteFooter { margin-left: 0; padding: 12px 16px; }
+  .portada-hero h2 { font-size: 22px; }
+  .install-grid { grid-template-columns: 1fr; }
+
+  /* Burger + mobile menu */
+  .burger { display: inline-flex !important; }
+  .mobile-menu { display: block; }
+}
+
+/* ===== Burger / Mobile menu ===== */
+.burger {
+  display: none;
+
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid rgba(30,45,69,.7);
+  border-radius: 12px;
+  cursor: pointer;
+  z-index: 300;
+}
+.burger__bar {
+  display: block;
+  width: 18px;
+  height: 2px;
+  background: var(--text);
+  margin: 2px 0;
+  border-radius: 2px;
+  opacity: .9;
+}
+
+.mobile-menu {
+  display: none;
+  position: fixed;
+  inset: 60px 0 auto 0;
+  z-index: 250;
+  pointer-events: none;
+}
+.mobile-menu.open {
+  pointer-events: auto;
+}
+.mobile-menu__panel {
+  margin: 0 12px 12px;
+  background: rgba(17,24,39,.98);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  max-height: calc(100vh - 80px);
+  transform: translateY(-6px);
+  opacity: 0;
+  transition: opacity .2s ease, transform .2s ease;
+}
+.mobile-menu.open .mobile-menu__panel {
+  transform: translateY(0);
+  opacity: 1;
+}
+.mobile-menu__head {
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+  gap: 10px;
+}
+.mobile-menu__title {
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--accent);
+}
+.mobile-menu__subtitle {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+.mobile-menu__close {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 10px;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+}
+
+.mobile-menu__progress {
+  padding: 10px 16px 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.mobile-menu__nav {
+  padding: 8px 0;
+  overflow-y: auto;
+  max-height: calc(100vh - 210px);
+}
+.mobile-menu__nav .nav-link {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+.mobile-menu__nav .nav-link__text strong {
+  font-size: 14px;
+}
+
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<header class="topbar">
+  <button class="burger" id="burgerBtn" type="button" aria-label="Abrir menú" aria-controls="mobileMenu" aria-expanded="false">
+    <span class="burger__bar"></span>
+    <span class="burger__bar"></span>
+    <span class="burger__bar"></span>
+  </button>
+  <span class="topbar__logo">[ OptiOS ]</span>
+  <span class="topbar__title">Manual de instalación de Opti OS 11</span>
+  <span class="topbar__meta">Desarrollo Web y Multimedia</span>
+</header>
+
+<!-- Mobile menu -->
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <div class="mobile-menu__panel" role="dialog" aria-modal="true" aria-label="Menú de navegación">
+    <div class="mobile-menu__head">
+      <div>
+        <div class="mobile-menu__title">Secciones</div>
+        <div class="mobile-menu__subtitle">Sigue el orden del manual</div>
+      </div>
+      <button class="mobile-menu__close" type="button" id="mobileCloseBtn" aria-label="Cerrar menú">✕</button>
+    </div>
+
+    <div class="mobile-menu__progress" aria-hidden="true">
+      <div class="progress-label">
+        <span>Progreso de lectura</span>
+        <span id="pctMobile">0%</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFillMobile"></div>
+      </div>
+    </div>
+
+    <nav class="mobile-menu__nav" aria-label="Secciones">
+      <div class="nav-link active" onclick="goTo('portada',this)">
+        <span class="nav-link__num">01</span>
+        <div class="nav-link__text">
+          <strong>Portada</strong>
+          <span>Presentación y datos del proyecto</span>
+        </div>
+      </div>
+      <div class="nav-link" onclick="goTo('indice',this)">
+        <span class="nav-link__num">02</span>
+        <div class="nav-link__text">
+          <strong>Índice</strong>
+          <span>Orden de secciones del manual</span>
+        </div>
+      </div>
+      <div class="nav-link" onclick="goTo('que-es',this)">
+        <span class="nav-link__num">03</span>
+        <div class="nav-link__text">
+          <strong>¿Qué es Opti OS 11?</strong>
+          <span>Descripción del sistema</span>
+        </div>
+      </div>
+      <div class="nav-link" onclick="goTo('requisitos',this)">
+        <span class="nav-link__num">04</span>
+        <div class="nav-link__text">
+          <strong>Requisitos del sistema</strong>
+          <span>Hardware mínimo y recomendado</span>
+        </div>
+      </div>
+      <div class="nav-link" onclick="goTo('rufus',this)">
+        <span class="nav-link__num">05</span>
+        <div class="nav-link__text">
+          <strong>Creación del medio con Rufus</strong>
+          <span>Preparar el USB booteable</span>
+        </div>
+      </div>
+      <div class="nav-link" onclick="goTo('bios',this)">
+        <span class="nav-link__num">06</span>
+        <div class="nav-link__text">
+          <strong>Configuración BIOS/UEFI</strong>
+          <span>Orden de arranque</span>
+        </div>
+      </div>
+      <div class="nav-link" onclick="goTo('instalacion',this)">
+        <span class="nav-link__num">07</span>
+        <div class="nav-link__text">
+          <strong>Instalación paso a paso</strong>
+          <span>Secuencia visual real</span>
+        </div>
+      </div>
+      <div class="nav-link" onclick="goTo('usuarios',this)">
+        <span class="nav-link__num">08</span>
+        <div class="nav-link__text">
+          <strong>Cuentas de usuario</strong>
+          <span>Configuración del laboratorio</span>
+        </div>
+      </div>
+      <div class="nav-link" onclick="goTo('verificacion',this)">
+        <span class="nav-link__num">09</span>
+        <div class="nav-link__text">
+          <strong>Verificación final</strong>
+          <span>Comprobaciones post-instalación</span>
+        </div>
+      </div>
+    </nav>
+  </div>
+</div>
+
+<div class="shell">
+  <!-- SIDEBAR -->
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar__head">
+      <h2>Secciones</h2>
+      <p>Sigue el orden del manual</p>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-label">
+        <span>Progreso de lectura</span>
+        <span id="pct">0%</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+    </div>
+
+    <div class="nav-link active" onclick="goTo('portada',this)">
+      <span class="nav-link__num">01</span>
+      <div class="nav-link__text">
+        <strong>Portada</strong>
+        <span>Presentación y datos del proyecto</span>
+      </div>
+    </div>
+    <div class="nav-link" onclick="goTo('indice',this)">
+      <span class="nav-link__num">02</span>
+      <div class="nav-link__text">
+        <strong>Índice</strong>
+        <span>Orden de secciones del manual</span>
+      </div>
+    </div>
+    <div class="nav-link" onclick="goTo('que-es',this)">
+      <span class="nav-link__num">03</span>
+      <div class="nav-link__text">
+        <strong>¿Qué es Opti OS 11?</strong>
+        <span>Descripción del sistema</span>
+      </div>
+    </div>
+    <div class="nav-link" onclick="goTo('requisitos',this)">
+      <span class="nav-link__num">04</span>
+      <div class="nav-link__text">
+        <strong>Requisitos del sistema</strong>
+        <span>Hardware mínimo y recomendado</span>
+      </div>
+    </div>
+    <div class="nav-link" onclick="goTo('rufus',this)">
+      <span class="nav-link__num">05</span>
+      <div class="nav-link__text">
+        <strong>Creación del medio con Rufus</strong>
+        <span>Preparar el USB booteable</span>
+      </div>
+    </div>
+    <div class="nav-link" onclick="goTo('bios',this)">
+      <span class="nav-link__num">06</span>
+      <div class="nav-link__text">
+        <strong>Configuración BIOS/UEFI</strong>
+        <span>Orden de arranque</span>
+      </div>
+    </div>
+    <div class="nav-link" onclick="goTo('instalacion',this)">
+      <span class="nav-link__num">07</span>
+      <div class="nav-link__text">
+        <strong>Instalación paso a paso</strong>
+        <span>Secuencia visual real</span>
+      </div>
+    </div>
+    <div class="nav-link" onclick="goTo('usuarios',this)">
+      <span class="nav-link__num">08</span>
+      <div class="nav-link__text">
+        <strong>Cuentas de usuario</strong>
+        <span>Configuración del laboratorio</span>
+      </div>
+    </div>
+    <div class="nav-link" onclick="goTo('verificacion',this)">
+      <span class="nav-link__num">09</span>
+      <div class="nav-link__text">
+        <strong>Verificación final</strong>
+        <span>Comprobaciones post-instalación</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- ── SECCIÓN 1: PORTADA ── -->
+    <div class="section-block" id="portada">
+      <div class="section-header">
+        <span class="section-header__num">01</span>
+        <div class="section-header__title">
+          <p class="section-header__eyebrow">Sección 1 · Inicio</p>
+          <h2>Portada</h2>
+          <p>Presentación general del trabajo y propósito del manual.</p>
+        </div>
+        <span class="section-tag">Manual educativo &nbsp;<strong>Desarrollo Web y Multimedia</strong></span>
+      </div>
+
+      <div class="portada-hero">
+        <p class="portada-hero__eyebrow">Colegio Secundario de Volcán</p>
+        <h2>Manual de instalación de Opti OS 11</h2>
+        <p>Este material fue elaborado para explicar, de manera ordenada y comprensible, cómo instalar Opti OS 11 en un equipo de laboratorio.</p>
+        <div class="project-badges">
+          <span class="badge">Materia: Desarrollo Web y Multimedia</span>
+          <span class="badge">Docente: Prof. Richard Caballero</span>
+          <span class="badge">Estudiantes: Jonny Aistrua, Jonathan Christian, Dylan Gonzales, Nelson Morales </span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Propósito del trabajo</h3>
+        <p>Nuestro objetivo fue construir un manual visual y técnico que sirva de apoyo a otros estudiantes al momento de preparar un equipo, instalar el sistema operativo y comprobar que todo funcione correctamente.</p>
+      </div>
+
+      <div class="accordion-group">
+        <h3>¿Qué se buscó mejorar en este manual?</h3>
+        <details class="accordion">
+          <summary>Claridad</summary>
+          <div class="accordion__body"><p>Se organizaron los temas por etapas para que el lector entienda primero qué es Opti OS 11, luego qué necesita, después cómo instalarlo y finalmente cómo verificarlo.</p></div>
+        </details>
+        <details class="accordion">
+          <summary>Relación entre texto e imágenes</summary>
+          <div class="accordion__body"><p>Las fotos incluidas no están puestas solo como decoración. Cada una corresponde a una parte real del proceso de instalación.</p></div>
+        </details>
+        <details class="accordion">
+          <summary>Utilidad práctica</summary>
+          <div class="accordion__body"><p>Además de la explicación teórica, se añadieron recomendaciones y observaciones que normalmente se toman en cuenta cuando se trabaja con equipos de laboratorio.</p></div>
+        </details>
+      </div>
+    </div>
+
+    <!-- ── SECCIÓN 2: ÍNDICE ── -->
+    <div class="section-block" id="indice">
+      <div class="section-header">
+        <span class="section-header__num">02</span>
+        <div class="section-header__title">
+          <p class="section-header__eyebrow">Sección 2 · Navegación</p>
+          <h2>Índice</h2>
+          <p>Orden de las secciones que componen el manual.</p>
+        </div>
+        <span class="section-tag">Manual educativo &nbsp;<strong>Desarrollo Web y Multimedia</strong></span>
+      </div>
+      <div class="card">
+        <h3>Contenido del manual</h3>
+        <ol class="index-list">
+          <li><span class="idx-num">01</span> Portada</li>
+          <li><span class="idx-num">02</span> Índice</li>
+          <li><span class="idx-num">03</span> ¿Qué es Opti OS 11?</li>
+          <li><span class="idx-num">04</span> Requisitos del sistema</li>
+          <li><span class="idx-num">05</span> Creación del medio con Rufus</li>
+          <li><span class="idx-num">06</span> Configuración BIOS/UEFI</li>
+          <li><span class="idx-num">07</span> Instalación paso a paso</li>
+          <li><span class="idx-num">08</span> Configuración de cuentas de usuario</li>
+          <li><span class="idx-num">09</span> Configuración posterior y verificación</li>
+        </ol>
+      </div>
+      <div class="card callout">
+        <p class="eyebrow">Nota</p>
+        <h3>Forma de lectura recomendada</h3>
+        <p>Aunque el manual puede revisarse por secciones, lo más recomendable es seguirlo en orden, porque cada etapa depende de la anterior.</p>
+      </div>
+    </div>
+
+    <!-- ── SECCIÓN 3: ¿QUÉ ES OPTI OS 11? ── -->
+    <div class="section-block" id="que-es">
+      <div class="section-header">
+        <span class="section-header__num">03</span>
+        <div class="section-header__title">
+          <p class="section-header__eyebrow">Sección 3 · Introducción</p>
+          <h2>¿Qué es Opti OS 11?</h2>
+          <p>Descripción general del sistema operativo que se instalará.</p>
+        </div>
+        <span class="section-tag">Manual educativo &nbsp;<strong>Desarrollo Web y Multimedia</strong></span>
+      </div>
+      <div class="card">
+        <h3>Descripción general</h3>
+        <p>Opti OS 11 es una versión modificada de Windows 11 enfocada en ofrecer mejor rendimiento. Fue creada por el canal de YouTube OptiProjects y puede descargarse desde el sitio optijuegos.net.</p>
+      </div>
+      <div class="card">
+        <h3>Características principales</h3>
+        <ul class="bullet-list">
+          <li>Es una versión optimizada y debloated de Windows 11.</li>
+          <li>Está orientada al gaming y a equipos con recursos limitados.</li>
+          <li>Reduce procesos en segundo plano, telemetría y programas innecesarios.</li>
+          <li>No exige TPM 2.0, por lo que puede instalarse en equipos donde Windows 11 original tendría restricciones.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Comparación de consumo de memoria al arrancar</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Sistema</th><th>RAM en arranque</th><th>Observación</th></tr></thead>
+            <tbody>
+              <tr><td>Windows 11 original</td><td>~3.5 GB</td><td>Más servicios y aplicaciones integradas</td></tr>
+              <tr><td>Opti OS 11</td><td>~1.2 GB</td><td>Carga inicial más ligera</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="accordion-group">
+        <h3>Observaciones del equipo</h3>
+        <details class="accordion">
+          <summary>¿Por qué se escogió este sistema?</summary>
+          <div class="accordion__body"><p>Se escogió porque representa un caso real de optimización de Windows y permite analizar ventajas, limitaciones y decisiones técnicas durante una instalación.</p></div>
+        </details>
+        <details class="accordion">
+          <summary>¿Qué se debe tener presente?</summary>
+          <div class="accordion__body"><p>Aunque consume menos recursos, siempre es importante comprobar drivers, red, audio y estabilidad antes de usarlo en varios equipos.</p></div>
+        </details>
+      </div>
+    </div>
+
+    <!-- ── SECCIÓN 4: REQUISITOS ── -->
+    <div class="section-block" id="requisitos">
+      <div class="section-header">
+        <span class="section-header__num">04</span>
+        <div class="section-header__title">
+          <p class="section-header__eyebrow">Sección 4 · Preparación</p>
+          <h2>Requisitos del sistema</h2>
+          <p>Condiciones mínimas y recomendadas para instalar Opti OS 11.</p>
+        </div>
+        <span class="section-tag">Manual educativo &nbsp;<strong>Desarrollo Web y Multimedia</strong></span>
+      </div>
+      <div class="card">
+        <h3>Requisitos mínimos y recomendados</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Componente</th><th>Mínimo</th><th>Recomendado</th></tr></thead>
+            <tbody>
+              <tr><td>Memoria RAM</td><td>4 GB</td><td>8 GB o más</td></tr>
+              <tr><td>Procesador</td><td>64 bits</td><td>64 bits con mejor rendimiento</td></tr>
+              <tr><td>Almacenamiento</td><td>20 GB</td><td>SSD con 60 GB o más</td></tr>
+              <tr><td>Gráficos</td><td>DirectX 11</td><td>GPU dedicada</td></tr>
+              <tr><td>TPM 2.0</td><td>No requerido</td><td>No requerido</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Cómo revisar el hardware</h3>
+        <ol class="step-list">
+          <li><span class="step-num">1</span> Presionar Windows + R.</li>
+          <li><span class="step-num">2</span> Escribir <code style="color:var(--accent);font-family:var(--mono)">dxdiag</code> y pulsar Enter.</li>
+          <li><span class="step-num">3</span> Revisar la memoria RAM, el procesador y la compatibilidad gráfica.</li>
+          <li><span class="step-num">4</span> Confirmar que el equipo cumple al menos con lo mínimo antes de instalar.</li>
+        </ol>
+      </div>
+      <div class="card callout">
+        <p class="eyebrow">Nota</p>
+        <h3>Ventaja para equipos de laboratorio</h3>
+        <p>Que no exija TPM 2.0 permite aprovechar computadoras más antiguas que todavía pueden seguir usándose con buen rendimiento.</p>
+      </div>
+    </div>
+
+    <!-- ── SECCIÓN 5: RUFUS ── -->
+    <div class="section-block" id="rufus">
+      <div class="section-header">
+        <span class="section-header__num">05</span>
+        <div class="section-header__title">
+          <p class="section-header__eyebrow">Sección 5 · Herramientas</p>
+          <h2>Creación del medio con Rufus</h2>
+          <p>Preparación del USB booteable para iniciar la instalación.</p>
+        </div>
+        <span class="section-tag">Manual educativo &nbsp;<strong>Desarrollo Web y Multimedia</strong></span>
+      </div>
+      <div class="card">
+        <h3>Material necesario</h3>
+        <ul class="bullet-list">
+          <li>Una memoria USB de 8 GB como mínimo.</li>
+          <li>La ISO de Opti OS 11 descargada desde optijuegos.net.</li>
+          <li>El programa Rufus para grabar la imagen en la memoria USB.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Pasos para crear el USB</h3>
+        <ol class="step-list">
+          <li><span class="step-num">1</span> Conectar la memoria USB al equipo.</li>
+          <li><span class="step-num">2</span> Abrir Rufus y seleccionar el dispositivo correcto.</li>
+          <li><span class="step-num">3</span> Buscar y cargar la ISO de Opti OS 11.</li>
+          <li><span class="step-num">4</span> Elegir <strong>GPT</strong> si el equipo usa UEFI.</li>
+          <li><span class="step-num">5</span> Elegir <strong>MBR</strong> si el equipo usa BIOS legacy.</li>
+          <li><span class="step-num">6</span> Iniciar el proceso y esperar hasta que Rufus termine.</li>
+        </ol>
+      </div>
+      <div class="accordion-group">
+        <h3>Errores comunes en esta etapa</h3>
+        <details class="accordion">
+          <summary>Escoger mal el esquema de partición</summary>
+          <div class="accordion__body"><p>Si se selecciona GPT cuando el equipo trabaja con BIOS legacy, o MBR cuando trabaja con UEFI, el arranque puede fallar.</p></div>
+        </details>
+        <details class="accordion">
+          <summary>Usar una USB con archivos importantes</summary>
+          <div class="accordion__body"><p>La memoria se formatea durante el proceso, por lo que cualquier archivo guardado en ella se pierde.</p></div>
+        </details>
+        <details class="accordion">
+          <summary>No verificar el modo de BIOS</summary>
+          <div class="accordion__body"><p>Antes de usar Rufus conviene abrir <code style="color:var(--accent);font-family:var(--mono)">msinfo32</code> para saber exactamente si el equipo trabaja con UEFI o BIOS legacy.</p></div>
+        </details>
+      </div>
+    </div>
+
+    <!-- ── SECCIÓN 6: BIOS ── -->
+    <div class="section-block" id="bios">
+      <div class="section-header">
+        <span class="section-header__num">06</span>
+        <div class="section-header__title">
+          <p class="section-header__eyebrow">Sección 6 · Firmware</p>
+          <h2>Configuración BIOS/UEFI</h2>
+          <p>Ingreso al firmware y cambio del orden de arranque.</p>
+        </div>
+        <span class="section-tag">Manual educativo &nbsp;<strong>Desarrollo Web y Multimedia</strong></span>
+      </div>
+      <div class="card">
+        <h3>Teclas de acceso según la marca</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Marca</th><th>Tecla</th></tr></thead>
+            <tbody>
+              <tr><td>HP</td><td>F10 o Esc</td></tr>
+              <tr><td>Dell</td><td>F2 o F12</td></tr>
+              <tr><td>Lenovo</td><td>F1 o F2</td></tr>
+              <tr><td>Asus</td><td>F2 o Supr</td></tr>
+              <tr><td>Acer</td><td>F2 o Supr</td></tr>
+              <tr><td>MSI</td><td>Supr o F11</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Cambio del orden de arranque</h3>
+        <ol class="step-list">
+          <li><span class="step-num">1</span> Reiniciar el equipo.</li>
+          <li><span class="step-num">2</span> Entrar a BIOS o al menú de arranque con la tecla correspondiente.</li>
+          <li><span class="step-num">3</span> Buscar la sección Boot o Arranque.</li>
+          <li><span class="step-num">4</span> Colocar la memoria USB en el primer lugar.</li>
+          <li><span class="step-num">5</span> Guardar los cambios con F10 y reiniciar.</li>
+        </ol>
+      </div>
+      <div class="card">
+        <h3>Observación práctica</h3>
+        <p>En un laboratorio puede haber equipos de distintas marcas. Por eso conviene tener anotadas las teclas de acceso, ya que no siempre son las mismas.</p>
+      </div>
+    </div>
+
+    <!-- ── SECCIÓN 7: INSTALACIÓN ── -->
+    <div class="section-block" id="instalacion">
+      <div class="section-header">
+        <span class="section-header__num">07</span>
+        <div class="section-header__title">
+          <p class="section-header__eyebrow">Sección 7 · Proceso principal</p>
+          <h2>Instalación paso a paso</h2>
+          <p>Secuencia real de instalación de Opti OS 11 con apoyo visual.</p>
+        </div>
+        <span class="section-tag">Manual educativo &nbsp;<strong>Desarrollo Web y Multimedia</strong></span>
+      </div>
+
+      <div class="card">
+        <h3>Resumen del procedimiento</h3>
+        <ol class="step-list">
+          <li><span class="step-num">1</span> Arrancar el equipo desde la memoria USB.</li>
+          <li><span class="step-num">2</span> Esperar a que el instalador cargue correctamente.</li>
+          <li><span class="step-num">3</span> Elegir idioma, teclado y formato regional.</li>
+          <li><span class="step-num">4</span> Seleccionar la versión de Opti OS 11 que se va a instalar.</li>
+          <li><span class="step-num">5</span> Preparar el disco eliminando particiones anteriores cuando sea necesario.</li>
+          <li><span class="step-num">6</span> Crear o seleccionar el espacio donde se instalará el sistema.</li>
+          <li><span class="step-num">7</span> Esperar la copia e instalación de archivos hasta el primer reinicio.</li>
+        </ol>
+      </div>
+
+      <!-- GALERÍA DE IMÁGENES REALES -->
+      <div class="install-sequence">
+        <h3>Secuencia visual real de la instalación</h3>
+        <div class="install-grid">
+
+          <figure class="install-card" onclick="openLightbox('assets/images/step-02.jpg','Inicio del instalador. El programa de instalación comienza a cargarse desde la memoria USB.')">
+            <div class="install-card__head">
+              <span class="install-card__step">Paso 1</span>
+              <span class="install-card__label">Inicio del instalador</span>
+            </div>
+            <img src="assets/images/step-02.jpg" alt="El programa de instalación se está iniciando" loading="lazy">
+            <figcaption>El programa de instalación comienza a cargarse desde la memoria USB.</figcaption>
+          </figure>
+
+          <figure class="install-card" onclick="openLightbox('assets/images/step-03.jpg','Selección de idioma y preferencias regionales. Se define el idioma de instalación, el formato regional y el teclado.')">
+            <div class="install-card__head">
+              <span class="install-card__step">Paso 2</span>
+              <span class="install-card__label">Idioma y región</span>
+            </div>
+            <img src="assets/images/step-03.jpg" alt="Selección de idioma y preferencias regionales" loading="lazy">
+            <figcaption>Se define el idioma de instalación, el formato regional y el teclado.</figcaption>
+          </figure>
+
+          <figure class="install-card" onclick="openLightbox('assets/images/step-04.jpg','Selección del sistema operativo. Se elige OptiOS 11 23H2 x64 para continuar con la instalación.')">
+            <div class="install-card__head">
+              <span class="install-card__step">Paso 3</span>
+              <span class="install-card__label">Selección del sistema</span>
+            </div>
+            <img src="assets/images/step-04.jpg" alt="Selección del sistema operativo OptiOS 11" loading="lazy">
+            <figcaption>Se elige OptiOS 11 23H2 x64 como versión a instalar.</figcaption>
+          </figure>
+
+          <figure class="install-card" onclick="openLightbox('assets/images/step-05.jpg','Revisión de particiones. Advertencia de partición previa con archivos del fabricante del equipo.')">
+            <div class="install-card__head">
+              <span class="install-card__step">Paso 4</span>
+              <span class="install-card__label">Revisión de particiones</span>
+            </div>
+            <img src="assets/images/step-05.jpg" alt="Advertencia de partición existente" loading="lazy">
+            <figcaption>Advertencia de partición previa. Se procede a eliminarla para limpiar el disco.</figcaption>
+          </figure>
+
+          <figure class="install-card" onclick="openLightbox('assets/images/step-06.jpg','Espacio sin asignar listo para instalar. Luego de limpiar el disco se selecciona el espacio disponible.')">
+            <div class="install-card__head">
+              <span class="install-card__step">Paso 5</span>
+              <span class="install-card__label">Espacio sin asignar</span>
+            </div>
+            <img src="assets/images/step-06.jpg" alt="Espacio sin asignar de 465.8 GB" loading="lazy">
+            <figcaption>Disco limpio con 465.8 GB disponibles. Se selecciona y se pulsa Siguiente.</figcaption>
+          </figure>
+
+          <figure class="install-card" onclick="openLightbox('assets/images/step-07.jpg','Copiando archivos de Windows. Esta parte puede tardar varios minutos y el equipo puede reiniciarse.')">
+            <div class="install-card__head">
+              <span class="install-card__step">Paso 6</span>
+              <span class="install-card__label">Copiando archivos</span>
+            </div>
+            <img src="assets/images/step-07.jpg" alt="Copiando archivos de Windows 0%" loading="lazy">
+            <figcaption>Proceso de copia e instalación de archivos. Puede tardar varios minutos.</figcaption>
+          </figure>
+
+          <figure class="install-card" onclick="openLightbox('assets/images/step-08.jpg','Pantalla de espera durante el reinicio. El sistema termina de configurarse antes de arrancar por primera vez.')">
+            <div class="install-card__head">
+              <span class="install-card__step">Paso 7</span>
+              <span class="install-card__label">Primer reinicio</span>
+            </div>
+            <img src="assets/images/step-08.jpg" alt="Pantalla de espera durante el reinicio" loading="lazy">
+            <figcaption>Pantalla de espera durante el reinicio. El sistema termina de configurarse.</figcaption>
+          </figure>
+
+        </div>
+      </div>
+
+      <div class="accordion-group">
+        <h3>Decisiones tomadas durante la práctica</h3>
+        <details class="accordion">
+          <summary>Idioma y teclado</summary>
+          <div class="accordion__body"><p>Se trabajó en español y con teclado latinoamericano para que la configuración quedara adecuada al entorno donde se usará el equipo.</p></div>
+        </details>
+        <details class="accordion">
+          <summary>Manejo de particiones</summary>
+          <div class="accordion__body"><p>Se decidió limpiar el disco para realizar una instalación desde cero, ya que se trataba de un equipo de laboratorio sin necesidad de conservar archivos personales.</p></div>
+        </details>
+        <details class="accordion">
+          <summary>Tiempo estimado</summary>
+          <div class="accordion__body"><p>El proceso completo puede durar entre 20 y 40 minutos, dependiendo del disco y del rendimiento general del equipo.</p></div>
+        </details>
+      </div>
+
+      <div class="card warning">
+        <p class="eyebrow">Advertencia</p>
+        <h3>Precaución durante esta etapa</h3>
+        <p>No se debe apagar el equipo ni retirar la memoria USB antes de tiempo. Si se interrumpe el proceso, la instalación puede quedar incompleta.</p>
+      </div>
+    </div>
+
+    <!-- ── SECCIÓN 8: USUARIOS ── -->
+    <div class="section-block" id="usuarios">
+      <div class="section-header">
+        <span class="section-header__num">08</span>
+        <div class="section-header__title">
+          <p class="section-header__eyebrow">Sección 8 · Accesos</p>
+          <h2>Configuración de cuentas de usuario</h2>
+          <p>Organización de usuarios para el entorno del laboratorio.</p>
+        </div>
+        <span class="section-tag">Manual educativo &nbsp;<strong>Desarrollo Web y Multimedia</strong></span>
+      </div>
+      <div class="card">
+        <h3>Criterio usado en el laboratorio</h3>
+        <p>Como se trata de equipos de laboratorio MEDUCA y no de computadoras personales, la configuración de usuarios debe enfocarse en mantener el control del sistema y evitar modificaciones accidentales.</p>
+      </div>
+      <div class="card">
+        <h3>Cuentas recomendadas</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Cuenta</th><th>Tipo</th><th>Función</th><th>Permisos</th></tr></thead>
+            <tbody>
+              <tr><td>Soporte</td><td>Administrador</td><td>Uso por técnico o docente</td><td>Permisos completos y protegida con contraseña</td></tr>
+              <tr><td>Estudiante</td><td>Usuario estándar</td><td>Uso diario por el alumnado</td><td>Sin permisos de instalación ni cambios críticos</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="install-sequence">
+        <h3>Pantalla de inicio de sesión</h3>
+        <div class="install-grid">
+          <figure class="install-card" onclick="openLightbox('assets/images/step-10.jpg','Pantalla de inicio de sesión con la cuenta Estudiante. Esta cuenta permite usar el equipo sin alterar configuraciones importantes.')">
+            <div class="install-card__head">
+              <span class="install-card__step">Paso 1</span>
+              <span class="install-card__label">Login de usuario</span>
+            </div>
+            <img src="assets/images/step-10.jpg" alt="Pantalla de inicio de sesión con cuenta Estudiante" loading="lazy">
+            <figcaption>Pantalla de inicio de sesión. Se crearon las cuentas Soporte y Estudiante para el laboratorio.</figcaption>
+          </figure>
+        </div>
+      </div>
+      <div class="card callout">
+        <p class="eyebrow">Nota</p>
+        <h3>Buena práctica</h3>
+        <p>Separar el usuario administrador del usuario de estudiante protege mejor el sistema y facilita el mantenimiento del laboratorio.</p>
+      </div>
+    </div>
+
+    <!-- ── SECCIÓN 9: VERIFICACIÓN ── -->
+    <div class="section-block" id="verificacion">
+      <div class="section-header">
+        <span class="section-header__num">09</span>
+        <div class="section-header__title">
+          <p class="section-header__eyebrow">Sección 9 · Cierre</p>
+          <h2>Configuración posterior y verificación</h2>
+          <p>Comprobaciones finales después de terminar la instalación.</p>
+        </div>
+        <span class="section-tag">Manual educativo &nbsp;<strong>Desarrollo Web y Multimedia</strong></span>
+      </div>
+      <div class="card">
+        <h3>Revisión final del sistema</h3>
+        <ol class="step-list">
+          <li><span class="step-num">1</span> Comprobar que el sistema inicia sin errores.</li>
+          <li><span class="step-num">2</span> Verificar audio, red y resolución de pantalla.</li>
+          <li><span class="step-num">3</span> Abrir el Administrador de dispositivos y confirmar que no existan íconos de advertencia.</li>
+          <li><span class="step-num">4</span> Probar que las cuentas Soporte y Estudiante funcionen correctamente.</li>
+        </ol>
+      </div>
+      <div class="install-sequence">
+        <h3>Resultado final del proceso</h3>
+        <div class="install-grid">
+          <figure class="install-card" onclick="goTo_lightbox('assets/images/step-09.jpg','Escritorio de Opti OS 11 ya instalado. El sistema quedó listo para la etapa de revisión y uso.')">
+            <div class="install-card__head">
+              <span class="install-card__step">Resultado</span>
+              <span class="install-card__label">Escritorio listo</span>
+            </div>
+            <img src="assets/images/step-09.jpg" alt="Escritorio de Opti OS 11 instalado" loading="lazy">
+            <figcaption>Escritorio de Opti OS 11 instalado y funcional. El sistema quedó listo para su uso.</figcaption>
+          </figure>
+        </div>
+      </div>
+      <div class="accordion-group">
+        <h3>Verificaciones que no se deben omitir</h3>
+        <details class="accordion">
+          <summary>Audio y red</summary>
+          <div class="accordion__body"><p>Son dos de los elementos más importantes en un laboratorio. Si alguno falla, el equipo no queda listo para clases o actividades multimedia.</p></div>
+        </details>
+        <details class="accordion">
+          <summary>Administrador de dispositivos</summary>
+          <div class="accordion__body"><p>Sirve para detectar si hay controladores faltantes o si algún componente del hardware no fue reconocido correctamente.</p></div>
+        </details>
+        <details class="accordion">
+          <summary>Prueba de usuarios</summary>
+          <div class="accordion__body"><p>No basta con crear las cuentas. Hay que entrar a ellas para confirmar que realmente funcionan y tienen los permisos previstos.</p></div>
+        </details>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <button class="lightbox__close" onclick="closeLightbox()">✕ Cerrar</button>
+  <img id="lightboxImg" src="" alt="">
+  <div class="lightbox__caption" id="lightboxCaption"></div>
+</div>
+
+<footer id="siteFooter">
+  <div id="siteFooterContent">
+    <div id="packageLicense" class="cc cc-by-sa">
+      <p>
+        <span class="license-label">Licencia: </span><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="license">Creative Commons: Reconocimiento - compartir igual 4.0</a>
+      </p>
+    </div>
+  </div>
+</footer>
+<p id="made-with-eXe">
+  <a href="https://exelearning.net/" target="_blank" rel="noopener">
+    <span>Creado con eXeLearning <span>(nueva ventana)</span></span>
+  </a>
+</p>
+
+<script>
+// ── NAVEGACIÓN ──
+function goTo(id, linkEl) {
+  const el = document.getElementById(id);
+  if (el) {
+    const top = el.getBoundingClientRect().top + window.scrollY - 70;
+    window.scrollTo({ top, behavior: 'smooth' });
+  }
+  if (linkEl) {
+    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+    linkEl.classList.add('active');
+  }
+}
+
+// ── PROGRESS BAR ──
+window.addEventListener('scroll', () => {
+  const total = document.body.scrollHeight - window.innerHeight;
+  const pct = total > 0 ? Math.round((window.scrollY / total) * 100) : 0;
+
+  const pctMobileEl = document.getElementById('pctMobile');
+  const progressFillMobileEl = document.getElementById('progressFillMobile');
+  if (pctMobileEl) pctMobileEl.textContent = pct + '%';
+  if (progressFillMobileEl) progressFillMobileEl.style.width = pct + '%';
+
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('pct').textContent = pct + '%';
+
+  // update nav active state
+  const sections = ['portada','indice','que-es','requisitos','rufus','bios','instalacion','usuarios','verificacion'];
+  const links = document.querySelectorAll('.nav-link');
+  let current = 0;
+  sections.forEach((id, i) => {
+    const el = document.getElementById(id);
+    if (el && el.getBoundingClientRect().top <= 80) current = i;
+  });
+  links.forEach(l => l.classList.remove('active'));
+  if (links[current]) links[current].classList.add('active');
+});
+
+// ── LIGHTBOX ──
+function goTo_lightbox(src, caption) {
+  document.getElementById('lightboxImg').src = src;
+  document.getElementById('lightboxCaption').textContent = caption;
+  document.getElementById('lightbox').classList.add('open');
+}
+function openLightbox(src, caption) { goTo_lightbox(src, caption); }
+function closeLightbox(e) {
+  if (!e || e.target !== document.getElementById('lightboxImg')) {
+    document.getElementById('lightbox').classList.remove('open');
+  }
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+// Burger / Mobile menu
+  const burgerBtn = document.getElementById('burgerBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const mobileCloseBtn = document.getElementById('mobileCloseBtn');
+
+  function openMobileMenu() {
+  mobileMenu.classList.add('open');
+    mobileMenu.style.display = 'block';
+    burgerBtn?.setAttribute('aria-expanded', 'true');
+    mobileMenu.setAttribute('aria-hidden', 'false');
+    // Update focus to close button for accessibility
+    mobileCloseBtn?.focus();
+  }
+
+  function closeMobileMenu() {
+    mobileMenu.classList.remove('open');
+    burgerBtn?.setAttribute('aria-expanded', 'false');
+    mobileMenu.setAttribute('aria-hidden', 'true');
+    burgerBtn?.focus();
+  }
+
+  burgerBtn?.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.contains('open');
+    if (isOpen) closeMobileMenu();
+    else openMobileMenu();
+  });
+
+  mobileCloseBtn?.addEventListener('click', closeMobileMenu);
+
+  // Close when clicking any mobile nav link
+  document.querySelectorAll('#mobileMenu .nav-link').forEach(l => {
+    l.addEventListener('click', () => closeMobileMenu());
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeMobileMenu();
+  });
+</script>
+</body>
+</html>
