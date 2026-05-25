@@ -337,257 +337,6 @@ a:hover { text-decoration: underline; }
   font-weight: 600;
 }
 
-/* ===== TABLES ===== */
-.table-wrap { overflow-x: auto; margin-top: 4px; }
-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 13px;
-}
-thead { background: var(--bg); }
-th {
-  text-align: left;
-  padding: 10px 14px;
-  font-family: var(--mono);
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: .07em;
-  color: var(--accent);
-  border-bottom: 1px solid var(--border);
-}
-td {
-  padding: 10px 14px;
-  border-bottom: 1px solid var(--border);
-  color: var(--text);
-}
-tbody tr:hover { background: rgba(255,255,255,.02); }
-
-/* ===== STEP LIST ===== */
-.step-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-.step-list li {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  font-size: 14px;
-  color: var(--text);
-  padding: 10px 14px;
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-}
-.step-num {
-  font-family: var(--mono);
-  font-size: 11px;
-  background: rgba(0,217,255,.12);
-  color: var(--accent);
-  padding: 1px 7px;
-  border-radius: 4px;
-  flex-shrink: 0;
-  margin-top: 1px;
-}
-
-/* ===== BULLET LIST ===== */
-.bullet-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-.bullet-list li {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  font-size: 14px;
-  color: var(--text);
-  padding-left: 4px;
-}
-.bullet-list li::before {
-  content: '▸';
-  color: var(--accent);
-  flex-shrink: 0;
-}
-
-/* ===== INDEX LIST ===== */
-.index-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-.index-list li {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 10px 16px;
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  font-size: 14px;
-  cursor: pointer;
-  transition: border-color .15s;
-}
-.index-list li:hover { border-color: var(--accent); }
-.index-list .idx-num {
-  font-family: var(--mono);
-  font-size: 12px;
-  color: var(--accent);
-  width: 28px;
-  flex-shrink: 0;
-}
-
-/* ===== ACCORDION ===== */
-.accordion-group { margin-bottom: 20px; }
-.accordion-group h3 {
-  font-size: 15px;
-  font-weight: 700;
-  color: #fff;
-  margin-bottom: 12px;
-}
-.accordion {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  margin-bottom: 6px;
-  overflow: hidden;
-}
-.accordion summary {
-  padding: 13px 18px;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--text);
-  cursor: pointer;
-  list-style: none;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  user-select: none;
-}
-.accordion summary::-webkit-details-marker { display: none; }
-.accordion summary::after {
-  content: '+';
-  font-family: var(--mono);
-  font-size: 16px;
-  color: var(--accent);
-}
-.accordion[open] summary::after { content: '−'; }
-.accordion__body {
-  padding: 4px 18px 16px;
-  font-size: 14px;
-  color: var(--text);
-  border-top: 1px solid var(--border);
-}
-
-/* ===== ★ INSTALLATION IMAGE SEQUENCE ===== */
-.install-sequence { margin-bottom: 20px; }
-.install-sequence h3 {
-  font-size: 15px;
-  font-weight: 700;
-  color: #fff;
-  margin-bottom: 20px;
-}
-.install-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 16px;
-}
-.install-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  overflow: hidden;
-  transition: border-color .2s, transform .2s;
-  cursor: pointer;
-}
-.install-card:hover {
-  border-color: var(--accent);
-  transform: translateY(-3px);
-}
-.install-card__head {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 14px;
-  background: var(--bg);
-  border-bottom: 1px solid var(--border);
-}
-.install-card__step {
-  font-family: var(--mono);
-  font-size: 11px;
-  background: var(--accent);
-  color: #000;
-  font-weight: 700;
-  padding: 2px 8px;
-  border-radius: 4px;
-}
-.install-card__label {
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--text);
-}
-.install-card img {
-  width: 100%;
-  aspect-ratio: 16/10;
-  object-fit: cover;
-  display: block;
-  background: var(--bg);
-}
-.install-card figcaption {
-  padding: 10px 14px;
-  font-size: 12px;
-  color: var(--muted);
-  line-height: 1.5;
-}
-
-/* Lightbox */
-.lightbox {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.92);
-  z-index: 999;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
-}
-.lightbox.open { display: flex; }
-.lightbox img {
-  max-width: 90vw;
-  max-height: 85vh;
-  border-radius: 8px;
-  border: 1px solid var(--border);
-}
-.lightbox__close {
-  position: absolute;
-  top: 20px; right: 24px;
-  font-family: var(--mono);
-  font-size: 20px;
-  color: var(--text);
-  cursor: pointer;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  padding: 4px 12px;
-  border-radius: 6px;
-}
-.lightbox__caption {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 8px 20px;
-  font-size: 13px;
-  color: var(--text);
-  text-align: center;
-  max-width: 600px;
-}
-
 /* ===== PORTADA HERO ===== */
 .portada-hero {
   background: linear-gradient(135deg, #0d1526 0%, #1a2235 50%, #0b1020 100%);
@@ -883,11 +632,6 @@ tbody tr:hover { background: rgba(255,255,255,.02); }
   }
 
   /* Grid mobile */
-  .install-grid {
-    grid-template-columns: 1fr;
-  }
-
-  /* Meta grid mobile */
   .meta-grid {
     grid-template-columns: 1fr;
   }
@@ -926,45 +670,6 @@ tbody tr:hover { background: rgba(255,255,255,.02); }
     gap: 8px;
   }
 
-  /* Lists mobile */
-  .step-list li,
-  .index-list li {
-    padding: 12px;
-    font-size: 13px;
-  }
-  .step-num {
-    font-size: 10px;
-  }
-
-  /* Table mobile */
-  .table-wrap {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-  table {
-    font-size: 12px;
-  }
-  th, td {
-    padding: 8px 10px;
-    font-size: 11px;
-  }
-
-  /* Accordion mobile */
-  .accordion summary {
-    padding: 12px 14px;
-    font-size: 12px;
-  }
-  .accordion__body {
-    padding: 8px 14px 12px;
-    font-size: 13px;
-  }
-
-  /* Bullet list mobile */
-  .bullet-list li {
-    font-size: 13px;
-    gap: 8px;
-  }
-
   /* Section block spacing mobile */
   .section-block {
     margin-bottom: 40px;
@@ -999,33 +704,37 @@ tbody tr:hover { background: rgba(255,255,255,.02); }
   }
 
   .section-header__title h2 {
-    font-size: 18px;
+    font-size: 16px;
   }
 
   .portada-hero {
-    padding: 20px 16px;
+    padding: 16px 12px;
   }
   .portada-hero h2 {
-    font-size: 19px;
+    font-size: 18px;
+  }
+  .portada-hero p {
+    font-size: 13px;
   }
 
   .card {
-    padding: 14px 16px;
+    padding: 12px 16px;
   }
-
-  .mobile-menu__panel {
-    margin: 0 8px 8px;
+  .card h3 {
+    font-size: 13px;
+  }
+  .card p {
+    font-size: 12px;
   }
 
   .project-badges {
-    gap: 6px;
+    gap: 4px;
   }
   .badge {
-    font-size: 13px;
-    padding: 3px 10px;
+    font-size: 12px;
+    padding: 3px 8px;
   }
 }
-
 </style>
 </head>
 <body>
@@ -1052,7 +761,7 @@ tbody tr:hover { background: rgba(255,255,255,.02); }
     <div class="mobile-menu__progress" aria-hidden="true">
       <div class="progress-label">
         <span>Progreso de lectura</span>
-        <span id="pctMobile">0%</span>
+        <span id="pcMobile">0%</span>
       </div>
       <div class="progress-track">
         <div class="progress-fill" id="progressFillMobile"></div>
@@ -1211,3 +920,286 @@ tbody tr:hover { background: rgba(255,255,255,.02); }
 
   <!-- MAIN -->
   <main class="main" id="main">
+
+    <!-- PORTADA -->
+    <section class="section-block" id="portada">
+      <div class="portada-hero">
+        <div class="portada-hero__eyebrow">Manual de instalación</div>
+        <h2>Opti OS 11</h2>
+        <p>Guía completa para la instalación y configuración del sistema operativo Opti OS 11 en laboratorios educativos. Este manual proporciona instrucciones detalladas paso a paso.</p>
+        <div class="project-badges">
+          <span class="badge">Educación</span>
+          <span class="badge">Sistemas</span>
+          <span class="badge">Linux</span>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <h3>Información del Proyecto</h3>
+        <p>Este manual ha sido desarrollado como parte del curso de Desarrollo Web y Multimedia. Contiene todas las instrucciones necesarias para instalar correctamente Opti OS 11.</p>
+        <div class="meta-grid">
+          <div class="meta-pill">
+            <span>Versión</span>
+            <strong>11.0</strong>
+          </div>
+          <div class="meta-pill">
+            <span>Secciones</span>
+            <strong>9 temas</strong>
+          </div>
+          <div class="meta-pill">
+            <span>Duración</span>
+            <strong>~45 min</strong>
+          </div>
+          <div class="meta-pill">
+            <span>Nivel</span>
+            <strong>Intermedio</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ÍNDICE -->
+    <section class="section-block" id="indice">
+      <div class="section-header">
+        <div class="section-header__num">02</div>
+        <div class="section-header__title">
+          <div class="section-header__eyebrow">Contenidos</div>
+          <h2>Índice del Manual</h2>
+          <p>Orden de secciones y temas a seguir</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Estructura del manual</h3>
+        <p>El manual está organizado en 9 secciones que cubren todo el proceso de instalación de Opti OS 11, desde los requisitos previos hasta la verificación final del sistema.</p>
+      </div>
+
+      <ol style="list-style: decimal; padding-left: 20px; color: var(--text);">
+        <li>Portada y presentación</li>
+        <li>Índice del manual</li>
+        <li>¿Qué es Opti OS 11?</li>
+        <li>Requisitos del sistema</li>
+        <li>Creación del medio booteable con Rufus</li>
+        <li>Configuración de BIOS/UEFI</li>
+        <li>Instalación paso a paso</li>
+        <li>Configuración de cuentas de usuario</li>
+        <li>Verificación final del sistema</li>
+      </ol>
+    </section>
+
+    <!-- QUÉ ES OPTI OS 11 -->
+    <section class="section-block" id="que-es">
+      <div class="section-header">
+        <div class="section-header__num">03</div>
+        <div class="section-header__title">
+          <div class="section-header__eyebrow">Sistema Operativo</div>
+          <h2>¿Qué es Opti OS 11?</h2>
+          <p>Características principales del sistema</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Descripción</h3>
+        <p>Opti OS 11 es un sistema operativo diseñado específicamente para entornos educativos, optimizado para laboratorios y actividades de aprendizaje. Ofrece una interfaz intuitiva y herramientas profesionales.</p>
+      </div>
+
+      <div class="card callout">
+        <div class="eyebrow">Características</div>
+        <h3>Funcionalidades principales</h3>
+        <p><strong>Rendimiento:</strong> Optimizado para hardware estándar de laboratorio. <strong>Seguridad:</strong> Incluye sistemas de control de acceso. <strong>Compatibilidad:</strong> Soporta software educativo común.</p>
+      </div>
+    </section>
+
+    <!-- REQUISITOS -->
+    <section class="section-block" id="requisitos">
+      <div class="section-header">
+        <div class="section-header__num">04</div>
+        <div class="section-header__title">
+          <div class="section-header__eyebrow">Especificaciones</div>
+          <h2>Requisitos del Sistema</h2>
+          <p>Hardware mínimo y recomendado</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Requisitos Mínimos</h3>
+        <p><strong>CPU:</strong> Procesador Intel Core i3 o equivalente | <strong>RAM:</strong> 4 GB | <strong>Almacenamiento:</strong> 20 GB libres | <strong>USB:</strong> Unidad de al menos 4 GB</p>
+      </div>
+
+      <div class="card">
+        <h3>Requisitos Recomendados</h3>
+        <p><strong>CPU:</strong> Procesador Intel Core i5 o superior | <strong>RAM:</strong> 8 GB o más | <strong>Almacenamiento:</strong> SSD de 50 GB | <strong>Conexión:</strong> Red estable</p>
+      </div>
+    </section>
+
+    <!-- RUFUS -->
+    <section class="section-block" id="rufus">
+      <div class="section-header">
+        <div class="section-header__num">05</div>
+        <div class="section-header__title">
+          <div class="section-header__eyebrow">Preparación</div>
+          <h2>Creación del Medio con Rufus</h2>
+          <p>Cómo preparar el USB booteable</p>
+        </div>
+      </div>
+
+      <div class="card callout">
+        <div class="eyebrow">Importante</div>
+        <h3>Antes de comenzar</h3>
+        <p>Asegúrate de tener: una imagen ISO de Opti OS 11, un USB de al menos 4 GB, y acceso de administrador en tu computadora.</p>
+      </div>
+
+      <div class="card warning">
+        <div class="eyebrow">Advertencia</div>
+        <h3>Pérdida de datos</h3>
+        <p>Este proceso formateará completamente el USB. Realiza una copia de seguridad de cualquier archivo importante antes de proceder.</p>
+      </div>
+    </section>
+
+    <!-- BIOS/UEFI -->
+    <section class="section-block" id="bios">
+      <div class="section-header">
+        <div class="section-header__num">06</div>
+        <div class="section-header__title">
+          <div class="section-header__eyebrow">Configuración</div>
+          <h2>Configuración BIOS/UEFI</h2>
+          <p>Orden de arranque y boot</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Pasos generales</h3>
+        <p>1. Reinicia la computadora | 2. Presiona Delete, F2 o F12 (según el fabricante) | 3. Accede a Configuración de Arranque | 4. Establece USB como primera opción de boot | 5. Guarda y reinicia</p>
+      </div>
+    </section>
+
+    <!-- INSTALACIÓN -->
+    <section class="section-block" id="instalacion">
+      <div class="section-header">
+        <div class="section-header__num">07</div>
+        <div class="section-header__title">
+          <div class="section-header__eyebrow">Proceso</div>
+          <h2>Instalación Paso a Paso</h2>
+          <p>Secuencia de instalación</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Proceso de instalación</h3>
+        <p>Sigue los pasos del asistente de instalación: selecciona idioma, acepta términos, particiona el disco, selecciona componentes y espera a que se complete la instalación.</p>
+      </div>
+
+      <div class="card callout">
+        <div class="eyebrow">Tiempo estimado</div>
+        <h3>Duración</h3>
+        <p>El proceso de instalación normalmente tarda entre 15 y 30 minutos, dependiendo de la velocidad del hardware.</p>
+      </div>
+    </section>
+
+    <!-- USUARIOS -->
+    <section class="section-block" id="usuarios">
+      <div class="section-header">
+        <div class="section-header__num">08</div>
+        <div class="section-header__title">
+          <div class="section-header__eyebrow">Configuración</div>
+          <h2>Cuentas de Usuario</h2>
+          <p>Configuración del laboratorio</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Crear cuentas de usuario</h3>
+        <p>Accede a Configuración > Cuentas de usuario. Crea una cuenta para cada estudiante con permisos estándar. El usuario administrador debe mantener credenciales seguras.</p>
+      </div>
+    </section>
+
+    <!-- VERIFICACIÓN -->
+    <section class="section-block" id="verificacion">
+      <div class="section-header">
+        <div class="section-header__num">09</div>
+        <div class="section-header__title">
+          <div class="section-header__eyebrow">Finalización</div>
+          <h2>Verificación Final</h2>
+          <p>Comprobaciones post-instalación</p>
+        </div>
+      </div>
+
+      <div class="card callout">
+        <div class="eyebrow">Checklist</div>
+        <h3>Verificar</h3>
+        <p>✓ Sistema inicia correctamente | ✓ Conexión de red funciona | ✓ Todos los usuarios tienen acceso | ✓ Software educativo instalado | ✓ Impresoras conectadas | ✓ Actualizaciones aplicadas</p>
+      </div>
+
+      <div class="card">
+        <h3>¡Instalación completada!</h3>
+        <p>Felicidades. Opti OS 11 está listo para usar en tu laboratorio educativo. Si encuentras algún problema, consulta la sección de soporte técnico.</p>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- FOOTER -->
+<footer id="siteFooter">
+  <div id="siteFooterContent">
+    <div id="packageLicense">
+      <p><span class="license-label">Manual de instalación Opti OS 11</span> • <a href="#" class="license">Licencia educativa</a></p>
+    </div>
+  </div>
+</footer>
+
+<p id="made-with-eXe"><a href="https://exelearning.net/" title="Creado con eXe Learning" target="_blank"><span>Creado con eXe Learning</span></a></p>
+
+<script>
+// Mobile burger menu
+const burgerBtn = document.getElementById('burgerBtn');
+const mobileCloseBtn = document.getElementById('mobileCloseBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+
+burgerBtn.addEventListener('click', () => {
+  mobileMenu.classList.toggle('open');
+  burgerBtn.setAttribute('aria-expanded', 
+    burgerBtn.getAttribute('aria-expanded') === 'false' ? 'true' : 'false');
+});
+
+mobileCloseBtn.addEventListener('click', () => {
+  mobileMenu.classList.remove('open');
+  burgerBtn.setAttribute('aria-expanded', 'false');
+});
+
+// Navigation function
+function goTo(sectionId, element) {
+  const section = document.getElementById(sectionId);
+  if (section) {
+    section.scrollIntoView({ behavior: 'smooth' });
+    
+    // Update active nav links
+    document.querySelectorAll('.nav-link, .mobile-menu .nav-link').forEach(link => {
+      link.classList.remove('active');
+    });
+    
+    if (element) {
+      element.classList.add('active');
+    }
+    
+    // Close mobile menu
+    mobileMenu.classList.remove('open');
+    burgerBtn.setAttribute('aria-expanded', 'false');
+  }
+}
+
+// Update progress (simple version)
+window.addEventListener('scroll', () => {
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const scrollPercent = (scrollTop / docHeight) * 100;
+  
+  document.getElementById('progressFill').style.width = scrollPercent + '%';
+  document.getElementById('progressFillMobile').style.width = scrollPercent + '%';
+  document.getElementById('pct').textContent = Math.round(scrollPercent) + '%';
+  document.getElementById('pcMobile').textContent = Math.round(scrollPercent) + '%';
+});
+</script>
+
+</body>
+</html>
